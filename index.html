@@ -9,7 +9,7 @@
         #login-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 5000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .login-box { border: 2px solid #00e5ff; padding: 30px; border-radius: 20px; width: 80%; max-width: 300px; }
         input { padding: 12px; border-radius: 8px; border: none; margin-bottom: 15px; width: 85%; text-align: center; font-size: 16px; }
-        button { background: #00e5ff; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        button { background: #00e5ff; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; margin: 5px; }
         #main-content { display: none; }
         .galeria { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 20px; }
         .card { border: 1px solid #333; padding: 10px; border-radius: 15px; background: #111; }
@@ -17,6 +17,9 @@
         #popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 4000; overflow-y: auto; padding-top: 50px; }
         #dice-btn { position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; background: #fff; border-radius: 20px; font-size: 40px; display: flex; align-items: center; justify-content: center; z-index: 1000; box-shadow: 0 0 20px #fff; color: #000; }
         .close-btn { position: fixed; top: 15px; right: 20px; font-size: 50px; color: #fff; background: none; border: none; z-index: 5000; }
+        
+        /* Estilo do botão de som que aparece depois */
+        #sound-unlocker { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 6000; display: none; flex-direction: column; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
@@ -27,15 +30,20 @@
 
     <div id="login-screen">
         <div class="login-box">
-            <h2>ENTRADA VIP</h2>
-            <p style="font-size: 12px; color: #00e5ff;">Clique no botão para liberar o som</p>
+            <h2>LOGIN</h2>
             <input type="password" id="pass-input" placeholder="Senha">
-            <button onclick="checkLogin()">ENTRAR E ATIVAR SOM</button>
+            <button onclick="checkLogin()">ENTRAR</button>
         </div>
     </div>
 
+    <div id="sound-unlocker">
+        <h2 style="color: #00e5ff;">Senha Correta!</h2>
+        <p>Clique abaixo para liberar as músicas do álbum:</p>
+        <button onclick="startApp()" style="padding: 20px 40px; font-size: 18px;">🔓 ATIVAR MÚSICAS</button>
+    </div>
+
     <div id="main-content">
-        <h1>Galera 🎲</h1>
+        <h1>Meus Amigos 🎲</h1>
         <div class="galeria">
             <div class="card"><img src="IMG_20260504_003550_067.jpg"><p>Évila</p></div>
             <div class="card"><img src="IMG_20260504_003558_579.jpg"><p>Kel</p></div>
@@ -57,24 +65,21 @@
             nathan: ['IMG_20260504_003607_762.jpg']
         };
 
-        // Função para "desbloquear" o áudio no celular
-        function unlockAudio() {
-            const sounds = ['music-evila', 'music-kel', 'music-nathan'];
-            sounds.forEach(id => {
-                const audio = document.getElementById(id);
-                audio.play().then(() => {
-                    audio.pause();
-                    audio.currentTime = 0;
-                }).catch(e => console.log("Aguardando interação..."));
-            });
-        }
-
         function checkLogin() {
             if (document.getElementById('pass-input').value === "amigos123") {
-                unlockAudio(); // Ativa o som aqui!
                 document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
+                document.getElementById('sound-unlocker').style.display = 'flex';
             } else { alert("Senha incorreta!"); }
+        }
+
+        function startApp() {
+            // "Acorda" os áudios
+            ['music-evila', 'music-kel', 'music-nathan'].forEach(id => {
+                const a = document.getElementById(id);
+                a.play().then(() => { a.pause(); a.currentTime = 0; });
+            });
+            document.getElementById('sound-unlocker').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
         }
 
         function stopAllMusic() {
