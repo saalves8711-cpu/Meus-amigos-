@@ -12,13 +12,13 @@
         .galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 10px; max-width: 1000px; margin: 0 auto; }
         .card { background: #111; border-radius: 15px; padding: 15px; border: 2px solid #333; transition: 0.3s; cursor: pointer; }
         
-        /* Cores Neon */
-        .card-sabrina { border-color: #00e5ff; }
-        .card-sabrina p { color: #00e5ff; }
-        .card-nathan { border-color: #00ff00; }
-        .card-nathan p { color: #00ff00; }
+        /* Cores Neon para os 3 */
+        .card-evila { border-color: #00e5ff; }
+        .card-evila p { color: #00e5ff; }
         .card-kel { border-color: #ff00ff; }
         .card-kel p { color: #ff00ff; }
+        .card-nathan { border-color: #00ff00; }
+        .card-nathan p { color: #00ff00; }
 
         .card:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0.2); }
         .card img { width: 100%; height: 350px; object-fit: cover; border-radius: 10px; }
@@ -41,19 +41,19 @@
     <h1>Álbum dos Amigos</h1>
 
     <div class="galeria">
-        <div class="card card-sabrina" onclick="openGallery('sabrina')">
-            <img src="IMG_20260504_003558_579.jpg">
-            <p>Sabrina</p>
-        </div>
-
-        <div class="card card-nathan" onclick="openGallery('nathan')">
-            <img src="IMG_20260504_003607_762.jpg">
-            <p>Nathan</p>
+        <div class="card card-evila" onclick="openGallery('evila')">
+            <img src="IMG_20260504_003555_218.jpg">
+            <p>Évila</p>
         </div>
 
         <div class="card card-kel" onclick="openGallery('kel')">
             <img src="IMG_20260114_151256_897.jpg">
             <p>Kel</p>
+        </div>
+
+        <div class="card card-nathan" onclick="openGallery('nathan')">
+            <img src="IMG_20260504_003607_762.jpg">
+            <p>Nathan</p>
         </div>
     </div>
 
@@ -69,9 +69,21 @@
 
     <script>
         const photos = {
-            sabrina: { name: 'Sabrina', color: '#00e5ff', files: ['IMG_20260504_003558_579.jpg', 'IMG_20260504_003555_218.jpg'] },
-            nathan: { name: 'Nathan', color: '#00ff00', files: ['IMG_20260504_003607_762.jpg', 'IMG_20260114_152507_575.jpg'] },
-            kel: { name: 'Kel', color: '#ff00ff', files: ['IMG_20260114_151256_897.jpg', 'IMG-20260303-WA0027.jpeg', 'IMG_20260504_003610_099.jpg'] }
+            evila: { 
+                name: 'Évila', 
+                color: '#00e5ff', 
+                files: ['IMG_20260504_003555_218.jpg', 'IMG_20260114_151804_695.jpg', 'IMG_20260114_152524_450.jpg', 'IMG_20260205_035207_192.jpg', 'IMG_20260504_003550_067.jpg', 'IMG_20260504_003558_579.jpg'] 
+            },
+            kel: { 
+                name: 'Kel', 
+                color: '#ff00ff', 
+                files: ['IMG_20260114_151256_897.jpg', 'IMG-20260303-WA0027.jpeg', 'IMG_20260504_003610_099.jpg'] 
+            },
+            nathan: { 
+                name: 'Nathan', 
+                color: '#00ff00', 
+                files: ['IMG_20260504_003607_762.jpg', 'IMG_20260114_152507_575.jpg'] 
+            }
         };
 
         function openGallery(person) {
