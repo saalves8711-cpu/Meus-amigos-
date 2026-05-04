@@ -4,27 +4,26 @@
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeria Neon 🎲</title>
+    <title>Álbum dos Amigos 🎲</title>
     <style>
         body { background-color: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; padding-bottom: 120px; }
         h1 { color: #00e5ff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; text-shadow: 0 0 10px #00e5ff; }
         
         .galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 10px; max-width: 1000px; margin: 0 auto; }
-        .card { background: #111; border-radius: 15px; padding: 15px; border: 2px solid #333; transition: 0.3s; cursor: pointer; }
         
-        /* Cores Neon */
-        .card-evila { border-color: #00e5ff; }
-        .card-evila p { color: #00e5ff; }
-        .card-kel { border-color: #ff00ff; }
-        .card-kel p { color: #ff00ff; }
-        .card-nathan { border-color: #00ff00; }
-        .card-nathan p { color: #00ff00; }
+        /* CARDS COM ANIMAÇÃO DE TOQUE */
+        .card { background: #111; border-radius: 15px; padding: 15px; border: 2px solid #333; cursor: pointer; transition: all 0.3s ease; }
+        .card:active { transform: scale(0.97); }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(255,255,255,0.1); }
+        
+        .card-evila { border-color: #00e5ff; } .card-evila p { color: #00e5ff; }
+        .card-kel { border-color: #ff00ff; } .card-kel p { color: #ff00ff; }
+        .card-nathan { border-color: #00ff00; } .card-nathan p { color: #00ff00; }
 
-        .card:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0.2); }
         .card img { width: 100%; height: 350px; object-fit: cover; border-radius: 10px; }
         .card p { margin-top: 15px; font-weight: bold; font-size: 1.5rem; text-transform: uppercase; }
 
-        /* POPUP COM ABERTURA SUAVE */
+        /* POPUP COM ABERTURA SUAVE PROFISSIONAL */
         #popup { 
             display: none; 
             position: fixed; 
@@ -34,16 +33,17 @@
             overflow-y: auto; 
             padding: 40px 0;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transform: scale(0.95);
+            transition: all 0.35s ease;
         }
-        #popup.show { display: block; opacity: 1; }
+        #popup.active { display: block; opacity: 1; transform: scale(1); }
         
         .popup-content { max-width: 90%; margin: 0 auto; }
         .scroll-photos { display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .scroll-photos img { width: 90%; max-width: 500px; border-radius: 15px; border: 3px solid #fff; }
         .close-btn { position: fixed; top: 20px; right: 20px; font-size: 40px; color: #fff; background: none; border: none; cursor: pointer; z-index: 2100; }
 
-        /* DADO ANIMADO */
+        /* DADO */
         #dice-btn { position: fixed; bottom: 20px; right: 20px; width: 70px; height: 70px; background: #fff; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 40px; box-shadow: 0 0 15px #fff; z-index: 1000; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
     </style>
@@ -101,23 +101,22 @@
             });
 
             popup.style.display = 'block';
-            setTimeout(() => popup.classList.add('show'), 10);
+            setTimeout(() => popup.classList.add('active'), 10);
         }
 
         function closeGallery() {
             const popup = document.getElementById('popup');
-            popup.classList.remove('show');
-            setTimeout(() => popup.style.display = 'none', 300);
+            popup.classList.remove('active');
+            setTimeout(() => popup.style.display = 'none', 350);
         }
 
-        // SORTEIO ESTILO CASSINO 🎰
         function rollDice() {
             const popup = document.getElementById('popup');
             const title = document.getElementById('gallery-title');
             const list = document.getElementById('photo-list');
 
             popup.style.display = 'block';
-            setTimeout(() => popup.classList.add('show'), 10);
+            setTimeout(() => popup.classList.add('active'), 10);
             
             title.innerText = "Sorteando...";
             title.style.color = "#ffea00";
@@ -127,17 +126,4 @@
             const interval = setInterval(() => {
                 const keys = Object.keys(photos);
                 const randomKey = keys[Math.floor(Math.random() * keys.length)];
-                const randomFile = photos[randomKey].files[Math.floor(Math.random() * photos[randomKey].files.length)];
-
-                list.innerHTML = `<img src="${randomFile}" style="border-color: #ffea00; width: 90%;">`;
-
-                count++;
-                if (count > 12) { // Gira 12 vezes antes de parar
-                    clearInterval(interval);
-                    title.innerText = "Sorteado: " + photos[randomKey].name;
-                }
-            }, 100);
-        }
-    </script>
-</body>
-</html>
+                const randomFile = photos[randomKey].files[Math.floor(Math.random
