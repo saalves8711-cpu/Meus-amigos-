@@ -4,39 +4,52 @@
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Álbum dos Amigos</title>
+    <title>Álbum dos Amigos - Final</title>
     <style>
-        /* --- ESTILO GERAL --- */
+        /* --- ESTILO GERAL (Fundo Preto) --- */
         body { background-color: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; padding-bottom: 120px; }
         h1 { color: #00e5ff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; text-shadow: 0 0 10px #00e5ff; }
         
         /* --- GALERIA PRINCIPAL --- */
         .galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 10px; max-width: 1000px; margin: 0 auto; }
-        .card { background: #111; border-radius: 15px; padding: 15px; border: 2px solid #333; transition: 0.3s; cursor: pointer; }
+        .card { background: #111; border-radius: 15px; padding: 15px; border: 1px solid #333; transition: 0.3s; cursor: pointer; }
         
-        /* Cores Neon para cada um */
-        .card-kel { border-color: #ff00ff; }
-        .card-kel p { color: #ff00ff; }
-        .card-nathan { border-color: #00ff00; }
-        .card-nathan p { color: #00ff00; }
-        .card-evila { border-color: #00e5ff; }
-        .card-evila p { color: #00e5ff; }
+        /* Efeito ao passar o dedo no card normal */
+        .card:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(255,255,255,0.2); }
+        .card img { width: 100%; height: 350px; object-fit: cover; border-radius: 10px; border: 2px solid #fff; }
+        .card p { margin-top: 15px; font-weight: bold; font-size: 1.5rem; text-transform: uppercase; color: #fff; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
 
-        .card:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0.2); }
-        .card img { width: 100%; height: 350px; object-fit: cover; border-radius: 10px; }
-        .card p { margin-top: 15px; font-weight: bold; font-size: 1.5rem; text-transform: uppercase; }
+        /* --- DESTAQUES NEON INDIVIDUAIS --- */
+        /* Sabrina (Azul Neon - FT NOVA) */
+        .card-sabrina { border-color: #00e5ff; }
+        .card-sabrina img { border-color: #00e5ff; }
+        .card-sabrina:hover { box-shadow: 0 0 20px rgba(0, 229, 255, 0.6); }
+        .card-sabrina p { color: #00e5ff; text-shadow: 0 0 5px #00e5ff; }
+
+        /* Nathan (Verde Neon - FT DORMINDO) */
+        .card-nathan { border-color: #00ff00; }
+        .card-nathan img { border-color: #00ff00; }
+        .card-nathan:hover { box-shadow: 0 0 20px rgba(0, 255, 0, 0.6); }
+        .card-nathan p { color: #00ff00; text-shadow: 0 0 5px #00ff00; }
+
+        /* Kel (Rosa Neon - FT PERFIL AZUL) */
+        .card-kel { border-color: #ff00ff; }
+        .card-kel img { border-color: #ff00ff; }
+        .card-kel:hover { box-shadow: 0 0 20px rgba(255, 0, 255, 0.6); }
+        .card-kel p { color: #ff00ff; text-shadow: 0 0 5px #ff00ff; }
+
+        /* --- O DADO SUPER CHAMATIVO --- */
+        #dice-btn { position: fixed; bottom: 20px; right: 20px; width: 70px; height: 70px; background: #fff; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 40px; box-shadow: 0 0 15px #fff; z-index: 1000; animation: pulse 1.5s infinite; transition: 0.2s; }
+        #dice-btn:active { transform: scale(0.9) rotate(15deg); }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); box-shadow: 0 0 25px #ffea00; } 100% { transform: scale(1); } }
 
         /* --- JANELA (POPUP) --- */
-        #popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; overflow-y: auto; padding: 40px 0; }
-        .popup-content { max-width: 90%; margin: 0 auto; }
-        .popup-title { font-size: 2rem; margin-bottom: 20px; text-transform: uppercase; }
+        #popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; overflow-y: auto; padding: 40px 0; }
+        .popup-content { max-width: 90%; margin: 0 auto; text-align: center; }
         .scroll-photos { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .scroll-photos img { width: 90%; max-width: 500px; border-radius: 15px; border: 3px solid #fff; }
-        .close-btn { position: fixed; top: 20px; right: 20px; font-size: 40px; color: #fff; background: none; border: none; cursor: pointer; z-index: 1100; }
-
-        /* --- DADO MÁGICO --- */
-        #dice-btn { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: #fff; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 0 15px #fff; z-index: 900; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        .scroll-photos img { width: 90%; max-width: 500px; border-radius: 15px; border: 3px solid #fff; box-shadow: 0 0 15px rgba(255,255,255,0.3); }
+        .popup-title { font-size: 2rem; margin-bottom: 20px; text-transform: uppercase; color: #ffea00; text-shadow: 0 0 10px #ffea00; }
+        .close-btn { position: fixed; top: 20px; right: 20px; font-size: 40px; color: #fff; background: none; border: none; cursor: pointer; z-index: 2100; text-shadow: 0 0 5px #000; }
     </style>
 </head>
 <body>
@@ -44,9 +57,9 @@
     <h1>Álbum dos Amigos</h1>
 
     <div class="galeria">
-        <div class="card card-kel" onclick="openGallery('kel')">
-            <img src="IMG-20260303-WA0027.jpeg">
-            <p>Kel</p>
+        <div class="card card-sabrina" onclick="openGallery('sabrina')">
+            <img src="IMG_20260504_003558_579.jpg">
+            <p>Sabrina</p>
         </div>
 
         <div class="card card-nathan" onclick="openGallery('nathan')">
@@ -54,9 +67,9 @@
             <p>Nathan</p>
         </div>
 
-        <div class="card card-evila" onclick="openGallery('evila')">
-            <img src="IMG_20260504_003555_218.jpg">
-            <p>Évila</p>
+        <div class="card card-kel" onclick="openGallery('kel')">
+            <img src="IMG_20260114_151256_897.jpg">
+            <p>Kel</p>
         </div>
     </div>
 
@@ -71,34 +84,14 @@
     <div id="dice-btn" onclick="rollDice()">🎲</div>
 
     <script>
-        // Organização das fotos
+        // Organização das fotos por álbum individual
         const photos = {
-            kel: {
-                name: 'Kel',
-                color: '#ff00ff',
-                files: ['IMG-20260303-WA0027.jpeg', 'IMG_20260504_003610_099.jpg']
-            },
-            nathan: {
-                name: 'Nathan',
-                color: '#00ff00',
-                files: ['IMG_20260504_003607_762.jpg', 'IMG_20260114_152507_575.jpg']
-            },
-            evila: {
-                name: 'Évila',
-                color: '#00e5ff',
-                files: [
-                    'IMG_20260504_003555_218.jpg', 
-                    'IMG_20260114_151256_897.jpg', 
-                    'IMG_20260114_151804_695.jpg', 
-                    'IMG_20260114_152524_450.jpg', 
-                    'IMG_20260205_035207_192.jpg', 
-                    'IMG_20260504_003550_067.jpg', 
-                    'IMG_20260504_003558_579.jpg'
-                ]
-            }
+            sabrina: { name: 'Sabrina', color: '#00e5ff', files: ['IMG_20260504_003558_579.jpg'] },
+            nathan: { name: 'Nathan', color: '#00ff00', files: ['IMG_20260504_003607_762.jpg', 'IMG_20260114_152507_575.jpg'] },
+            kel: { name: 'Kel', color: '#ff00ff', files: ['IMG_20260114_151256_897.jpg', 'IMG-20260303-WA0027.jpeg', 'IMG_20260504_003610_099.jpg'] }
         };
 
-        // Abrir galeria de uma pessoa específica
+        // Função para abrir o álbum de alguém
         function openGallery(person) {
             const data = photos[person];
             const list = document.getElementById('photo-list');
@@ -106,7 +99,8 @@
             
             title.innerText = "Fotos de " + data.name;
             title.style.color = data.color;
-            list.innerHTML = ""; // Limpa fotos anteriores
+            title.style.textShadow = `0 0 10px ${data.color}`;
+            list.innerHTML = ""; 
 
             data.files.forEach(file => {
                 const img = document.createElement('img');
@@ -125,16 +119,18 @@
         // Função do Dado (Escolhe 1 foto de QUALQUER pessoa)
         function rollDice() {
             const keys = Object.keys(photos);
-            const randomPerson = keys[Math.floor(Math.random() * keys.length)];
-            const personPhotos = photos[randomPerson].files;
+            const randomPersonKey = keys[Math.floor(Math.random() * keys.length)];
+            const personPhotos = photos[randomPersonKey].files;
             const randomFile = personPhotos[Math.floor(Math.random() * personPhotos.length)];
 
             const list = document.getElementById('photo-list');
             const title = document.getElementById('gallery-title');
             
-            title.innerText = "Sorteado: " + photos[randomPerson].name;
-            title.style.color = "#fff";
-            list.innerHTML = `<img src="${randomFile}" style="border-color: #fff; width: 90%;">`;
+            title.innerText = "Sorteado: " + photos[randomPersonKey].name;
+            title.style.color = "#ffea00"; // Amarelo para o sorteio
+            title.style.textShadow = "0 0 10px #ffea00";
+            
+            list.innerHTML = `<img src="${randomFile}" style="border-color: #ffea00; width: 90%;">`;
             
             document.getElementById('popup').style.display = 'block';
         }
