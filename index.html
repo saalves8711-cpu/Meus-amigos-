@@ -1,40 +1,37 @@
-                                <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br" class="notranslate" translate="no">
 <head>
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Álbum VIP Pro 🎲</title>
+    <title>Álbum VIP - Meus Amigos 🎲</title>
     <style>
-        body { background: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; padding-bottom: 120px; overflow-x: hidden; }
+        /* ESTILOS GERAIS */
+        body { background: #000; color: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; margin: 0; padding: 20px; padding-bottom: 120px; overflow-x: hidden; }
         
         /* TELA DE LOGIN */
         #login-screen { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: #000; z-index: 5000; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; transition: opacity 0.4s ease;
+            background: radial-gradient(circle, #1a1a1a 0%, #000 100%); 
+            z-index: 5000; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            transition: opacity 0.5s ease;
         }
         .login-box { 
             border: 2px solid #00e5ff; padding: 40px 20px; border-radius: 20px; 
-            background: #111; box-shadow: 0 0 30px rgba(0, 229, 255, 0.3); 
+            background: rgba(17, 17, 17, 0.95); box-shadow: 0 0 30px rgba(0, 229, 255, 0.3); 
             text-align: center; width: 85%; max-width: 350px; 
         }
-        .login-box input { padding: 15px; border-radius: 12px; border: 1px solid #333; margin-bottom: 20px; width: 80%; font-size: 1.2rem; text-align: center; background: #000; color: #fff; outline: none; }
+        .login-box h2 { color: #00e5ff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+        .login-box input { padding: 15px; border-radius: 12px; border: 1px solid #333; margin-bottom: 20px; width: 85%; font-size: 1.2rem; text-align: center; background: #000; color: #fff; outline: none; }
         .login-box button { background: #00e5ff; color: #000; border: none; padding: 12px 30px; border-radius: 10px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
 
-        /* CAMADA DE ANIMAÇÃO DO CADEADO - MELHORADA */
+        /* ANIMAÇÃO DO CADEADO */
         #unlock-animation {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             display: none; align-items: center; justify-content: center;
-            z-index: 9999; pointer-events: none; background: rgba(0,0,0,0.5);
+            z-index: 6000; pointer-events: none;
         }
-        .padlock-emoji {
-            font-size: 80px; /* Maior de início */
-            filter: drop-shadow(0 0 30px #00e5ff);
-            transform: scale(0);
-        }
-
-        /* ANIMAÇÃO QUE VEM NA TELA */
+        .padlock-emoji { font-size: 80px; opacity: 0; filter: drop-shadow(0 0 20px #00e5ff); }
         @keyframes unlockZoom {
             0% { transform: scale(0.5); opacity: 0; }
             50% { opacity: 1; transform: scale(3); }
@@ -42,42 +39,67 @@
         }
 
         /* CONTEÚDO PRINCIPAL */
-        #main-content { display: none; }
-        h1 { color: #00e5ff; text-transform: uppercase; text-shadow: 0 0 20px #00e5ff; }
-        .galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto; }
-        .card { border: 2px solid #333; border-radius: 15px; padding: 10px; background: #0a0a0a; cursor: pointer; }
-        .card img { width: 100%; height: 320px; object-fit: cover; border-radius: 10px; }
-        .card-evila { border-color: #00e5ff; } .card-kel { border-color: #ff00ff; } .card-nathan { border-color: #00ff00; }
+        #main-content { display: none; animation: fadeIn 1s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        h1 { color: #00e5ff; text-transform: uppercase; text-shadow: 0 0 20px #00e5ff; margin-bottom: 30px; }
+        .galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; max-width: 1100px; margin: 0 auto; }
+        
+        .card { border: 2px solid #333; border-radius: 20px; padding: 10px; background: #0a0a0a; cursor: pointer; transition: 0.3s; overflow: hidden; }
+        .card:hover { transform: translateY(-5px); border-color: #00e5ff; }
+        .card img { width: 100%; height: 350px; object-fit: cover; border-radius: 15px; display: block; }
+        .card p { font-weight: bold; font-size: 1.5rem; margin: 15px 0 5px; letter-spacing: 1px; }
 
-        /* POPUP E DADO */
-        #popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 3500; overflow-y: auto; padding: 60px 0; }
-        .scroll-photos img { width: 92%; max-width: 500px; margin-bottom: 20px; border: 2px solid #fff; border-radius: 15px; }
-        .close-btn { position: fixed; top: 15px; right: 20px; font-size: 50px; color: #fff; cursor: pointer; border: none; background: none; }
-        #dice-btn { position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; background: #fff; border-radius: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 40px; box-shadow: 0 0 20px #fff; z-index: 1000; }
+        /* TRANSIÇÃO DE EXPANSÃO */
+        #anim-img {
+            position: fixed; z-index: 4000; border-radius: 15px;
+            transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+            object-fit: cover;
+        }
+
+        /* POPUP DA GALERIA */
+        #popup { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.98); z-index: 3500; overflow-y: auto; padding: 60px 0;
+        }
+        .scroll-photos img { width: 92%; max-width: 500px; margin-bottom: 25px; border: 2px solid #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        .close-btn { position: fixed; top: 15px; right: 20px; font-size: 50px; color: #fff; cursor: pointer; border: none; background: none; z-index: 4500; }
+        
+        /* BOTÃO DO DADO */
+        #dice-btn { position: fixed; bottom: 30px; right: 30px; width: 75px; height: 75px; background: #fff; border-radius: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 45px; box-shadow: 0 0 25px #fff; z-index: 1000; transition: 0.2s; }
+        #dice-btn:active { transform: scale(0.9); }
     </style>
 </head>
 <body>
 
-    <div id="unlock-animation">
-        <div class="padlock-emoji" id="padlock">🔓</div>
-    </div>
+    <audio id="music-evila" src="MC Carol _ Karol Conka - 100_ Feminista (prod. Leo Justi _ Tropkillaz) (MP3_160K).mp3" preload="auto"></audio>
+    <audio id="music-kel" src="MÚSICA O BRASILÉ 100_ BOLSONARO - Nova coreografia(MP3_160K).mp3" preload="auto"></audio>
+    <audio id="music-nathan" src="Tom Odell - Another Love _ Tradução_Legendado _(MP3_160K).mp3" preload="auto"></audio>
+
+    <div id="unlock-animation"><div class="padlock-emoji" id="padlock">🔓</div></div>
 
     <div id="login-screen">
         <div class="login-box">
-            <h2>ACESSO RESTRITO</h2>
-            <p style="color: #888; font-style: italic; margin-bottom: 20px;">"Entre apenas se você fizer parte da história."</p>
-            <input type="password" id="pass-input" placeholder="Código">
+            <h2>LOGIN VIP</h2>
+            <p style="color: #888; font-style: italic; margin-bottom: 20px;">"Cofre digital Meus Amigos"</p>
+            <input type="password" id="pass-input" placeholder="Senha Secreta">
             <br>
-            <button onclick="checkLogin()">Desbloquear</button>
+            <button onclick="checkLogin()">Acessar</button>
         </div>
     </div>
 
     <div id="main-content">
-        <h1>Álbum da Galera</h1>
+        <h1>Meus Amigos 🧪🔐</h1>
         <div class="galeria">
-            <div class="card card-evila" onclick="openGallery('evila', this)"><img src="IMG_20260504_003550_067.jpg"><p>Évila</p></div>
-            <div class="card card-kel" onclick="openGallery('kel', this)"><img src="IMG_20260504_003558_579.jpg"><p>Kel</p></div>
-            <div class="card card-nathan" onclick="openGallery('nathan', this)"><img src="IMG_20260504_003607_762.jpg"><p>Nathan</p></div>
+            <div class="card" onclick="openGallery('evila', this)">
+                <img src="IMG_20260504_003550_067.jpg"><p>Évila</p>
+            </div>
+            <div class="card" onclick="openGallery('kel', this)">
+                <img src="IMG_20260504_003558_579.jpg"><p>Kel</p>
+            </div>
+            <div class="card" onclick="openGallery('nathan', this)">
+                <img src="IMG_20260504_003607_762.jpg"><p>Nathan</p>
+            </div>
         </div>
     </div>
 
@@ -101,60 +123,99 @@
                 const padlock = document.getElementById('padlock');
                 const loginScreen = document.getElementById('login-screen');
 
-                // 1. Mostra a camada da animação
                 animLayer.style.display = 'flex';
-                
-                // 2. Dispara a animação do cadeado
-                padlock.style.animation = 'unlockZoom 1s ease-in-out forwards';
+                padlock.style.animation = 'unlockZoom 0.9s forwards';
+                loginScreen.style.opacity = '0';
 
-                // 3. Esconde o login após um curto delay
-                setTimeout(() => {
-                    loginScreen.style.opacity = '0';
-                }, 200);
-
-                // 4. Libera o site
                 setTimeout(() => {
                     loginScreen.style.display = 'none';
                     document.getElementById('main-content').style.display = 'block';
                     animLayer.style.display = 'none';
-                }, 900);
-            } else { alert("Acesso Negado!"); }
+                }, 800);
+            } else { alert("Senha incorreta!"); }
         }
 
-        // Funções de Galeria e Dado mantidas iguais...
+        function stopAllMusic() {
+            ['music-evila', 'music-kel', 'music-nathan'].forEach(id => {
+                const m = document.getElementById(id);
+                if(m) { m.pause(); m.currentTime = 0; }
+            });
+        }
+
         function openGallery(p, el) {
-            showGalleryContent(p); // Simplifiquei para garantir que abre
+            const rect = el.getBoundingClientRect();
+            const anim = document.createElement('img');
+            anim.src = el.querySelector('img').src;
+            anim.id = "anim-img";
+
+            anim.style.top = rect.top + "px";
+            anim.style.left = rect.left + "px";
+            anim.style.width = rect.width + "px";
+            anim.style.height = rect.height + "px";
+
+            document.body.appendChild(anim);
+
+            setTimeout(() => {
+                anim.style.top = "0px";
+                anim.style.left = "0px";
+                anim.style.width = "100vw";
+                anim.style.height = "100vh";
+                anim.style.borderRadius = "0px";
+                anim.style.objectFit = "contain";
+                anim.style.background = "black";
+            }, 10);
+
+            setTimeout(() => {
+                anim.remove();
+                showGalleryContent(p);
+            }, 450);
         }
 
         function showGalleryContent(p) {
             const list = document.getElementById('photo-list');
-            list.innerHTML = `<h2 style="color:#fff; margin-bottom:30px;">Fotos de ${p}</h2>`;
+            list.innerHTML = `<h2 style="color:#00e5ff; margin-bottom:30px;">Fotos de ${p.toUpperCase()}</h2>`;
             photos[p].forEach(imgName => {
                 const img = document.createElement('img');
                 img.src = imgName;
                 list.appendChild(img);
             });
             document.getElementById('popup').style.display = 'block';
+            document.body.style.overflow = 'hidden';
         }
 
-        function closeGallery() { document.getElementById('popup').style.display = 'none'; }
+        function closeGallery() { 
+            document.getElementById('popup').style.display = 'none'; 
+            document.body.style.overflow = 'auto'; 
+            stopAllMusic(); // <--- PARA A MÚSICA AO FECHAR
+        }
 
         function rollDice() {
+            stopAllMusic(); // Para música anterior se houver
             const list = document.getElementById('photo-list');
             document.getElementById('popup').style.display = 'block';
+            document.body.style.overflow = 'hidden';
             let count = 0;
+            let lastKey = "";
+
             const interval = setInterval(() => {
                 const keys = Object.keys(photos);
                 const rKey = keys[Math.floor(Math.random() * keys.length)];
                 const rFile = photos[rKey][Math.floor(Math.random() * photos[rKey].length)];
-                list.innerHTML = `<h2 style="color:#ffea00">SORTEANDO...</h2><img src="${rFile}" style="border-color:#ffea00; width:90%;">`;
+                list.innerHTML = `<h1 style="color:#ffea00">SORTEANDO...</h1><img src="${rFile}" style="border-color:#ffea00; width:90%; max-width:450px;">`;
                 count++;
-                if (count > 12) {
+                lastKey = rKey;
+
+                if (count > 15) {
                     clearInterval(interval);
-                    list.innerHTML = `<h2 style="color:#00ff00">SORTEADO: ${rKey.toUpperCase()}!</h2><img src="${rFile}" style="border-color:#00ff00; width:90%;">`;
+                    // TOCA A MÚSICA SORTEADA
+                    const song = document.getElementById("music-" + lastKey);
+                    if(song) song.play().catch(e => console.log("Erro som:", e));
+                    
+                    list.innerHTML = `<h1 style="color:#00ff00">SORTEADO: ${lastKey.toUpperCase()}! 🎶</h1><img src="${photos[lastKey][0]}" style="border-color:#00ff00; width:90%; max-width:450px;">`;
                 }
             }, 100);
         }
+
         document.getElementById('pass-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') checkLogin(); });
     </script>
 </body>
