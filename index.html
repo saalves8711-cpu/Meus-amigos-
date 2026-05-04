@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Álbum dos Amigos</title>
+    <title>Galeria Neon 🎲</title>
     <style>
         body { background-color: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; padding-bottom: 120px; }
         h1 { color: #00e5ff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; text-shadow: 0 0 10px #00e5ff; }
@@ -12,7 +12,7 @@
         .galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 10px; max-width: 1000px; margin: 0 auto; }
         .card { background: #111; border-radius: 15px; padding: 15px; border: 2px solid #333; transition: 0.3s; cursor: pointer; }
         
-        /* Cores Neon para os 3 */
+        /* Cores Neon */
         .card-evila { border-color: #00e5ff; }
         .card-evila p { color: #00e5ff; }
         .card-kel { border-color: #ff00ff; }
@@ -24,15 +24,27 @@
         .card img { width: 100%; height: 350px; object-fit: cover; border-radius: 10px; }
         .card p { margin-top: 15px; font-weight: bold; font-size: 1.5rem; text-transform: uppercase; }
 
-        /* Popup */
-        #popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; overflow-y: auto; padding: 40px 0; }
+        /* POPUP COM ABERTURA SUAVE */
+        #popup { 
+            display: none; 
+            position: fixed; 
+            top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.95); 
+            z-index: 2000; 
+            overflow-y: auto; 
+            padding: 40px 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #popup.show { display: block; opacity: 1; }
+        
         .popup-content { max-width: 90%; margin: 0 auto; }
         .scroll-photos { display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .scroll-photos img { width: 90%; max-width: 500px; border-radius: 15px; border: 3px solid #fff; }
         .close-btn { position: fixed; top: 20px; right: 20px; font-size: 40px; color: #fff; background: none; border: none; cursor: pointer; z-index: 2100; }
 
-        /* Dado */
-        #dice-btn { position: fixed; bottom: 20px; right: 20px; width: 65px; height: 65px; background: #fff; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 0 15px #fff; z-index: 1000; animation: pulse 1.5s infinite; }
+        /* DADO ANIMADO */
+        #dice-btn { position: fixed; bottom: 20px; right: 20px; width: 70px; height: 70px; background: #fff; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 40px; box-shadow: 0 0 15px #fff; z-index: 1000; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
     </style>
 </head>
@@ -42,17 +54,15 @@
 
     <div class="galeria">
         <div class="card card-evila" onclick="openGallery('evila')">
-            <img src="IMG_20260504_003555_218.jpg">
+            <img src="1000002769.jpg">
             <p>Évila</p>
         </div>
-
         <div class="card card-kel" onclick="openGallery('kel')">
-            <img src="IMG_20260114_151256_897.jpg">
+            <img src="1000002771.jpg">
             <p>Kel</p>
         </div>
-
         <div class="card card-nathan" onclick="openGallery('nathan')">
-            <img src="IMG_20260504_003607_762.jpg">
+            <img src="1000002787.jpg">
             <p>Nathan</p>
         </div>
     </div>
@@ -69,27 +79,17 @@
 
     <script>
         const photos = {
-            evila: { 
-                name: 'Évila', 
-                color: '#00e5ff', 
-                files: ['IMG_20260504_003555_218.jpg', 'IMG_20260114_151804_695.jpg', 'IMG_20260114_152524_450.jpg', 'IMG_20260205_035207_192.jpg', 'IMG_20260504_003550_067.jpg', 'IMG_20260504_003558_579.jpg'] 
-            },
-            kel: { 
-                name: 'Kel', 
-                color: '#ff00ff', 
-                files: ['IMG_20260114_151256_897.jpg', 'IMG-20260303-WA0027.jpeg', 'IMG_20260504_003610_099.jpg'] 
-            },
-            nathan: { 
-                name: 'Nathan', 
-                color: '#00ff00', 
-                files: ['IMG_20260504_003607_762.jpg', 'IMG_20260114_152507_575.jpg'] 
-            }
+            evila: { name: 'Évila', color: '#00e5ff', files: ['1000002769.jpg', '1000002773.jpg', '1000002777.jpg', '1000002779.jpg', '1000002781.jpg', '1000002783.jpg', '1000002785.jpg'] },
+            kel: { name: 'Kel', color: '#ff00ff', files: ['1000002771.jpg', '54548.jpg', '54546.jpg', '39105.jpg', '39114.jpg', '39118.jpg', '33321.jpg', '33323.jpg'] },
+            nathan: { name: 'Nathan', color: '#00ff00', files: ['1000002787.jpg', '1000002775.jpg'] }
         };
 
         function openGallery(person) {
+            const popup = document.getElementById('popup');
             const data = photos[person];
             const list = document.getElementById('photo-list');
             const title = document.getElementById('gallery-title');
+            
             title.innerText = "Fotos de " + data.name;
             title.style.color = data.color;
             list.innerHTML = ""; 
@@ -99,21 +99,44 @@
                 img.style.borderColor = data.color;
                 list.appendChild(img);
             });
-            document.getElementById('popup').style.display = 'block';
+
+            popup.style.display = 'block';
+            setTimeout(() => popup.classList.add('show'), 10);
         }
 
-        function closeGallery() { document.getElementById('popup').style.display = 'none'; }
+        function closeGallery() {
+            const popup = document.getElementById('popup');
+            popup.classList.remove('show');
+            setTimeout(() => popup.style.display = 'none', 300);
+        }
 
+        // SORTEIO ESTILO CASSINO 🎰
         function rollDice() {
-            const keys = Object.keys(photos);
-            const randomKey = keys[Math.floor(Math.random() * keys.length)];
-            const randomFile = photos[randomKey].files[Math.floor(Math.random() * photos[randomKey].files.length)];
-            const list = document.getElementById('photo-list');
+            const popup = document.getElementById('popup');
             const title = document.getElementById('gallery-title');
-            title.innerText = "Sorteado: " + photos[randomKey].name;
+            const list = document.getElementById('photo-list');
+
+            popup.style.display = 'block';
+            setTimeout(() => popup.classList.add('show'), 10);
+            
+            title.innerText = "Sorteando...";
             title.style.color = "#ffea00";
-            list.innerHTML = `<img src="${randomFile}" style="border-color: #ffea00; width: 90%;">`;
-            document.getElementById('popup').style.display = 'block';
+            list.innerHTML = "";
+
+            let count = 0;
+            const interval = setInterval(() => {
+                const keys = Object.keys(photos);
+                const randomKey = keys[Math.floor(Math.random() * keys.length)];
+                const randomFile = photos[randomKey].files[Math.floor(Math.random() * photos[randomKey].files.length)];
+
+                list.innerHTML = `<img src="${randomFile}" style="border-color: #ffea00; width: 90%;">`;
+
+                count++;
+                if (count > 12) { // Gira 12 vezes antes de parar
+                    clearInterval(interval);
+                    title.innerText = "Sorteado: " + photos[randomKey].name;
+                }
+            }, 100);
         }
     </script>
 </body>
