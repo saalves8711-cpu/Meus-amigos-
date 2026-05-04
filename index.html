@@ -1,1 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Álbum dos Amigos</title>
+    <style>
+        body { background: #000; color: white; font-family: sans-serif; text-align: center; margin: 0; }
+        h1 { font-size: 2.5rem; margin: 30px 0; color: #00e5ff; }
+        .grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; padding: 15px; }
+        .card { background: #111; border-radius: 12px; overflow: hidden; border: 1px solid #333; cursor: pointer; }
+        .card img { width: 100%; height: 180px; object-fit: cover; }
+        .card p { padding: 8px; margin: 0; font-weight: bold; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); overflow-y: auto; z-index: 10; }
+        .modal-content { padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
+        .modal-content img { width: 100%; border-radius: 8px; border: 1px solid #444; }
+        .fechar { position: fixed; top: 15px; right: 15px; font-size: 35px; color: #ff4444; cursor: pointer; font-weight: bold; z-index: 20; }
+    </style>
+</head>
+<body>
+
+    <h1>AMIGOS</h1>
+
+    <div class="grade">
+        <div class="card" onclick="abrir('nathan')">
+            <img src="IMG-20260303-WA0024.jpg"> <p>Amigo 1</p>
+        </div>
+    </div>
+
+    <div id="nathan" class="modal">
+        <span class="fechar" onclick="fechar('nathan')">&times;</span>
+        <div class="modal-content">
+            <h2>Fotos de Amigo 1</h2>
+            <img src="IMG-20260114_151253.jpg">
+            <img src="IMG-20260114_151801.jpg">
+            </div>
+    </div>
+
+    <script>
+        function abrir(id) { document.getElementById(id).style.display = "block"; }
+        function fechar(id) { document.getElementById(id).style.display = "none"; }
+    </script>
+</body>
+</html>
 
