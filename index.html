@@ -4,15 +4,60 @@
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Álbum dos Amigos</title>
+    <title>Álbum dos Amigos - O Jogo</title>
     <style>
-        body { background-color: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
-        h1 { color: #00e5ff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; }
-        .galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 10px; max-width: 1200px; margin: 0 auto; }
-        .card { background: #111; border-radius: 15px; padding: 15px; border: 1px solid #333; transition: 0.3s; }
-        .card:hover { border-color: #00e5ff; transform: translateY(-5px); }
+        /* --- ESTILO GERAL --- */
+        body { background-color: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; padding-bottom: 120px; }
+        h1 { color: #00e5ff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; text-shadow: 0 0 10px #00e5ff; }
+        
+        /* --- GALERIA PRINCIPAL --- */
+        .galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 10px; max-width: 1000px; margin: 0 auto; }
+        .card { background: #111; border-radius: 15px; padding: 15px; border: 1px solid #333; transition: 0.3s; cursor: pointer; }
+        
+        /* Efeito ao passar o dedo no card normal */
+        .card:hover { border-color: #00e5ff; transform: scale(1.03); box-shadow: 0 0 15px rgba(0, 229, 255, 0.4); }
         .card img { width: 100%; height: 350px; object-fit: cover; border-radius: 10px; border: 2px solid #00e5ff; }
-        .card p { margin-top: 15px; font-weight: bold; font-size: 1.2rem; color: #00e5ff; }
+        .card p { margin-top: 15px; font-weight: bold; font-size: 1.4rem; color: #fff; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+
+        /* --- DESTAQUES EXCLUSIVOS --- */
+        /* Sabrina (Azul Neon) */
+        .card-sabrina:hover { border-color: #00e5ff; box-shadow: 0 0 20px rgba(0, 229, 255, 0.6); }
+        .card-sabrina p { color: #00e5ff; }
+
+        /* Nathan (Verde Neon) */
+        .card-nathan:hover { border-color: #00ff00; box-shadow: 0 0 20px rgba(0, 255, 0, 0.6); }
+        .card-nathan img { border-color: #00ff00; }
+        .card-nathan p { color: #00ff00; }
+
+        /* Kel (Rosa Neon) */
+        .card-kel:hover { border-color: #ff00ff; box-shadow: 0 0 20px rgba(255, 0, 255, 0.6); }
+        .card-kel img { border-color: #ff00ff; }
+        .card-kel p { color: #ff00ff; }
+
+        /* --- O DADO SUPER CHAMATIVO --- */
+        #dice-container { position: fixed; bottom: 20px; right: 20px; z-index: 100; }
+        #roll-button { background: none; border: none; cursor: pointer; padding: 0; outline: none; }
+        
+        /* O Dado em si (CSS 3D) */
+        .dice { width: 60px; height: 60px; position: relative; transform-style: preserve-3d; transition: transform 0.5s ease-out; }
+        .card-nathan img { border-color: #00ff00; }
+        .dice:active { transform: rotateX(360deg) rotateY(360deg); }
+
+        .face { position: absolute; width: 100%; height: 100%; background: #fff; border: 2px solid #000; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: bold; color: #000; box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
+        
+        /* Cores especiais para as faces */
+        .face1 { background: #00e5ff; transform: translateZ(30px); } /* Sabrina */
+        .face2 { background: #00ff00; transform: rotateY(90deg) translateZ(30px); } /* Nathan */
+        .face3 { background: #ff00ff; transform: rotateY(180deg) translateZ(30px); } /* Kel */
+        .face4 { background: #fff; transform: rotateY(-90deg) translateZ(30px); }
+        .face5 { background: #ffea00; transform: rotateX(90deg) translateZ(30px); }
+        .face6 { background: #ff4400; transform: rotateX(-90deg) translateZ(30px); }
+
+        /* --- JANELA FLUTUANTE (POPUP) --- */
+        #popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0, 0, 0, 0.9); border: 3px solid #ffea00; border-radius: 20px; padding: 20px; z-index: 1000; box-shadow: 0 0 30px #ffea00; max-width: 90%; }
+        #popup img { max-width: 100%; max-height: 70vh; border-radius: 10px; border: 2px solid #fff; }
+        #popup-name { font-size: 2rem; font-weight: bold; margin-top: 15px; color: #ffea00; }
+        #close-popup { position: absolute; top: 10px; right: 15px; background: none; border: none; color: #fff; font-size: 25px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -20,31 +65,81 @@
     <h1>Álbum dos Amigos</h1>
 
     <div class="galeria">
-        <div class="card">
+        <div class="card card-sabrina">
+            <img src="IMG-20260303-WA0024.jpg">
+            <p>Sabrina</p>
+        </div>
+
+        <div class="card card-nathan">
             <img src="IMG_20260504_003607_762.jpg">
             <p>Nathan</p>
         </div>
 
-        <div class="card">
-            <img src="IMG_20260504_003555_218.jpg">
-            <p>Évila</p>
-        </div>
-
-        <div class="card">
-            <img src="IMG_20260114_151256_897.jpg">
-            <p>Évila</p>
-        </div>
-
-        <div class="card">
-            <img src="IMG_20260504_003610_099.jpg">
-            <p>Kel</p>
-        </div>
-
-        <div class="card">
+        <div class="card card-kel">
             <img src="IMG-20260303-WA0027.jpeg">
             <p>Kel</p>
         </div>
     </div>
+
+    <div id="dice-container">
+        <button id="roll-button" onclick="rollAndShow()">
+            <div class="dice" id="dice">
+                <div class="face face1">🎲</div>
+                <div class="face face2">N</div>
+                <div class="face face3">K</div>
+                <div class="face face4">?</div>
+                <div class="face face5">S</div>
+                <div class="face face6">★</div>
+            </div>
+        </button>
+    </div>
+
+    <div id="popup">
+        <button id="close-popup" onclick="closePopup()">×</button>
+        <img src="" id="popup-img">
+        <p id="popup-name"></p>
+    </div>
+
+    <script>
+        // Lista de TODAS as fotos que você tem no GitHub
+        const allPhotos = [
+            { src: 'IMG-20260303-WA0024.jpg', name: 'Sabrina' },
+            { src: 'IMG_20260504_003607_762.jpg', name: 'Nathan' },
+            { src: 'IMG_20260114_152507_575.jpg', name: 'Nathan' },
+            { src: 'IMG_20260504_003555_218.jpg', name: 'Évila' },
+            { src: 'IMG_20260114_151256_897.jpg', name: 'Évila' },
+            { src: 'IMG-20260303-WA0027.jpeg', name: 'Kel' },
+            { src: 'IMG_20260504_003610_099.jpg', name: 'Kel' }
+        ];
+
+        // Função para girar o dado e mostrar a foto
+        function rollAndShow() {
+            // 1. Gira o dado (animação)
+            const dice = document.getElementById('dice');
+            dice.style.transform = 'rotateX(720deg) rotateY(720deg)';
+
+            // 2. Espera a animação acabar (0.5s) e mostra a foto
+            setTimeout(() => {
+                // Escolhe uma foto aleatória da lista
+                const randomPhoto = allPhotos[Math.floor(Math.random() * allPhotos.length)];
+
+                // Preenche o popup com a foto e o nome
+                document.getElementById('popup-img').src = randomPhoto.src;
+                document.getElementById('popup-name').innerText = randomPhoto.name;
+
+                // Mostra o popup
+                document.getElementById('popup').style.display = 'block';
+                
+                // Reseta a rotação do dado para o próximo clique
+                dice.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            }, 500);
+        }
+
+        // Função para fechar a janela
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
 
 </body>
 </html>
