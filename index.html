@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Álbum dos Amigos 🎲</title>
+    <title>Álbum VIP 🎲</title>
     <style>
         body { background: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
         #login-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 5000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
@@ -28,8 +28,9 @@
     <div id="login-screen">
         <div class="login-box">
             <h2>ENTRADA VIP</h2>
-            <input type="password" id="pass-input" placeholder="Digite a senha">
-            <button onclick="checkLogin()">ENTRAR</button>
+            <p style="font-size: 12px; color: #00e5ff;">Clique no botão para liberar o som</p>
+            <input type="password" id="pass-input" placeholder="Senha">
+            <button onclick="checkLogin()">ENTRAR E ATIVAR SOM</button>
         </div>
     </div>
 
@@ -56,8 +57,21 @@
             nathan: ['IMG_20260504_003607_762.jpg']
         };
 
+        // Função para "desbloquear" o áudio no celular
+        function unlockAudio() {
+            const sounds = ['music-evila', 'music-kel', 'music-nathan'];
+            sounds.forEach(id => {
+                const audio = document.getElementById(id);
+                audio.play().then(() => {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }).catch(e => console.log("Aguardando interação..."));
+            });
+        }
+
         function checkLogin() {
             if (document.getElementById('pass-input').value === "amigos123") {
+                unlockAudio(); // Ativa o som aqui!
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
             } else { alert("Senha incorreta!"); }
@@ -94,9 +108,7 @@
                     list.innerHTML = `<h1 style="color:#00ff00">${winner.toUpperCase()}! 🎶</h1><img src="${photos[winner][0]}" style="width:85%; border-radius:15px; border: 3px solid #00ff00;">`;
                     
                     const audio = document.getElementById("music-" + winner);
-                    if(audio) {
-                        audio.play().catch(e => console.log("Erro ao tocar:", e));
-                    }
+                    if(audio) audio.play();
                 }
             }, 100);
         }
